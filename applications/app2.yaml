@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app2-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - environment: dev
+            server_url: https://kubernetes.default.svc
+#          - environment: qa
+#            server_url: https://kubernetes-qa.example.com
+#          - environment: stage
+#            server_url: https://kubernetes-prod.example.com
+#          - environment: prod
+#            server_url: https://kubernetes-prod.example.com
+  template:
+    metadata:
+      name: '{{cluster}}-app2'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-applications'
+        targetRevision: HEAD
+        path: 'applications/app2'
+        directory:
+          jsonnet:
+            extVars:
+              - name: env
+                value: '{{environment}}'
+            libs:
+              - ../libs
+      destination:
+        server: '{{server_url}}'
+        namespace: 'tf-flash-{{environment}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
