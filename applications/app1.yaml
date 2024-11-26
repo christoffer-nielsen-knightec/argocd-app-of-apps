@@ -23,9 +23,8 @@ spec:
       source:
         repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-applications'
         targetRevision: HEAD
-        path: 'applications'
+        path: 'applications/app1'
         directory:
-          include: 'app1/*, libs/*, values/*'
           jsonnet:
             extVars:
               - name: env
