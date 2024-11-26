@@ -23,14 +23,15 @@ spec:
       source:
         repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-applications'
         targetRevision: HEAD
-        path: 'applications/app2'
+        path: 'applications'
         directory:
+          include: 'app2/*, libs/*, values/*'
           jsonnet:
             extVars:
               - name: env
                 value: '{{environment}}'
             libs:
-              - ../libs
+              - libs
       destination:
         server: '{{server_url}}'
         namespace: 'tf-flash-{{environment}}'
