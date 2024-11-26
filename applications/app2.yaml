@@ -17,7 +17,7 @@ spec:
 #            server_url: https://kubernetes-prod.example.com
   template:
     metadata:
-      name: '{{cluster}}-app2'
+      name: '{{.environment}}-app2'
     spec:
       project: default
       source:
@@ -28,12 +28,12 @@ spec:
           jsonnet:
             extVars:
               - name: env
-                value: '{{environment}}'
+                value: '{{.environment}}'
             libs:
               - ../libs
       destination:
-        server: '{{server_url}}'
-        namespace: 'tf-flash-{{environment}}'
+        server: '{{.server_url}}'
+        namespace: 'tf-flash-{{.environment}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
