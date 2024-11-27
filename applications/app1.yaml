@@ -29,6 +29,8 @@ spec:
             extVars:
               - name: env
                 value: '{{environment}}'
+              -   name: namespace
+                  value: 'tf-flash-{{environment}}'
             libs:
               - libs
       destination:
