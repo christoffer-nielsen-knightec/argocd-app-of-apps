@@ -31,3 +31,5 @@ spec:
         automated:
           prune: true
           selfHeal: true
+      dependencies:
+        - create-namespace-applicationset
