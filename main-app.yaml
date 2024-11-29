@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-app-of-apps'
-    targetRevision: HEAD
+    targetRevision: kustomize
     path: 'applications'
   destination:
     server: 'https://kubernetes.default.svc'

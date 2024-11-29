@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: app2-applicationset
+  name: nginx-app-1-applicationset
   namespace: argocd
 spec:
   generators:
@@ -17,25 +17,16 @@ spec:
 #            server_url: https://kubernetes-prod.example.com
   template:
     metadata:
-      name: '{{environment}}-app2'
+      name: '{{environment}}-nginx-app-1'
     spec:
       project: default
       source:
         repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-applications'
-        targetRevision: HEAD
-        path: 'applications/app2'
-        directory:
-          jsonnet:
-            extVars:
-              - name: env
-                value: '{{environment}}'
-              - name: namespace
-                value: 'tf-flash-{{environment}}'
-            libs:
-              - libs
+        targetRevision: kustomize
+        path: 'nginx-app-1/overlays/{{environment}}'
       destination:
         server: '{{server_url}}'
-        namespace: 'tf-flash-{{environment}}'
+#        namespace: 'tf-flash-{{environment}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
