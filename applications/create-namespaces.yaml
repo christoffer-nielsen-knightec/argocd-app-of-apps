@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: nginx-app-2-applicationset
+  name: create-namespace-applicationset
   namespace: argocd
 spec:
   generators:
@@ -9,24 +9,17 @@ spec:
         elements:
           - environment: dev
             server_url: https://kubernetes.default.svc
-  #          - environment: qa
-  #            server_url: https://kubernetes-qa.example.com
-  #          - environment: stage
-  #            server_url: https://kubernetes-prod.example.com
-  #          - environment: prod
-  #            server_url: https://kubernetes-prod.example.com
   template:
     metadata:
-      name: '{{environment}}-nginx-app-2'
+      name: 'create-namespace-{{environment}}'
     spec:
       project: default
       source:
         repoURL: 'https://github.com/christoffer-nielsen-knightec/argocd-applications'
         targetRevision: kustomize
-        path: 'nginx-app-2/overlays/{{environment}}'
+        path: 'namespace/overlays/{{environment}}'
       destination:
         server: '{{server_url}}'
-        namespace: 'nginx-test'
       syncPolicy:
         automated:
           prune: true

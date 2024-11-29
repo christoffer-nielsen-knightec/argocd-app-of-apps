@@ -28,8 +28,6 @@ spec:
         server: '{{server_url}}'
         namespace: 'nginx-test'
       syncPolicy:
-        syncOptions:
-          - CreateNamespace=true
         automated:
           prune: true
           selfHeal: true
